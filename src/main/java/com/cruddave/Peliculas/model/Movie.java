@@ -4,6 +4,5 @@ import lombok.Data;
 
 @Data
 public class Movie {
-    String name, director, genre;
-    Double duration;
+    String name, director, genr, e;
 }
