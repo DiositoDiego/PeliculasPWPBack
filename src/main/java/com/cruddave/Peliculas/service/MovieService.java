@@ -5,10 +5,12 @@ import com.cruddave.Peliculas.model.Movie;
 import com.cruddave.Peliculas.repository.GenreRepository;
 import com.cruddave.Peliculas.repository.MovieRepository;
 import com.cruddave.Peliculas.utils.CustomResponse;
+import com.cruddave.Peliculas.utils.DateBody;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,91 @@ public class MovieService {
             response.setData(null);
             response.setError(true);
             response.setMessage("Movie not found");
+            response.setCode(404);
+        }
+        return response;
+    }
+
+    public CustomResponse<List<Movie>> getMoviesByName(String name){
+        CustomResponse<List<Movie>> response = new CustomResponse<>();
+        List<Movie> movies = movieRepository.findByName(name);
+        if(!movies.isEmpty()){
+            response.setData(movies);
+            response.setError(false);
+            response.setMessage("Movies found");
+            response.setCode(200);
+        } else {
+            response.setData(null);
+            response.setError(true);
+            response.setMessage("No movies found");
+            response.setCode(404);
+        }
+        return response;
+    }
+
+    public CustomResponse<List<Movie>> getMoviesByDirector(String director){
+        CustomResponse<List<Movie>> response = new CustomResponse<>();
+        List<Movie> movies = movieRepository.findByDirector(director);
+        if(!movies.isEmpty()){
+            response.setData(movies);
+            response.setError(false);
+            response.setMessage("Movies found");
+            response.setCode(200);
+        } else {
+            response.setData(null);
+            response.setError(true);
+            response.setMessage("No movies found");
+            response.setCode(404);
+        }
+        return response;
+    }
+
+    public CustomResponse<List<Movie>> getMoviesBetweenDates(DateBody date){
+        CustomResponse<List<Movie>> response = new CustomResponse<>();
+        List<Movie> movies = movieRepository.findBetweenDates(date.getStartDate(), date.getEndDate());
+        if(!movies.isEmpty()){
+            response.setData(movies);
+            response.setError(false);
+            response.setMessage("Movies found");
+            response.setCode(200);
+        } else {
+            response.setData(null);
+            response.setError(true);
+            response.setMessage("No movies found");
+            response.setCode(404);
+        }
+        return response;
+    }
+
+    public CustomResponse<List<Movie>> getMoviesByGenre(Long id){
+        CustomResponse<List<Movie>> response = new CustomResponse<>();
+        List<Movie> movies = movieRepository.findByGenre(id);
+        if(!movies.isEmpty()){
+            response.setData(movies);
+            response.setError(false);
+            response.setMessage("Movies found");
+            response.setCode(200);
+        } else {
+            response.setData(null);
+            response.setError(true);
+            response.setMessage("No movies found");
+            response.setCode(404);
+        }
+        return response;
+    }
+
+    public CustomResponse<List<Movie>> getMoviesByReleaseDate(Date date){
+        CustomResponse<List<Movie>> response = new CustomResponse<>();
+        List<Movie> movies = movieRepository.findByReleaseDate(date);
+        if(!movies.isEmpty()){
+            response.setData(movies);
+            response.setError(false);
+            response.setMessage("Movies found");
+            response.setCode(200);
+        } else {
+            response.setData(null);
+            response.setError(true);
+            response.setMessage("No movies found");
             response.setCode(404);
         }
         return response;

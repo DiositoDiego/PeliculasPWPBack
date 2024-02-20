@@ -3,9 +3,11 @@ package com.cruddave.Peliculas.controller;
 import com.cruddave.Peliculas.model.Movie;
 import com.cruddave.Peliculas.service.MovieService;
 import com.cruddave.Peliculas.utils.CustomResponse;
+import com.cruddave.Peliculas.utils.DateBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,31 @@ public class MovieController {
     @GetMapping("/{id}")
     public CustomResponse<Movie> getMovieById(@PathVariable Long id){
         return service.getMovieById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public CustomResponse<List<Movie>> getMoviesByName(@PathVariable String name){
+        return service.getMoviesByName(name);
+    }
+
+    @GetMapping("/director/{director}")
+    public CustomResponse<List<Movie>> getMoviesByDirector(@PathVariable String director){
+        return service.getMoviesByDirector(director);
+    }
+
+    @PostMapping("/date/between")
+    public CustomResponse<List<Movie>> getMoviesBetweenDates(@RequestBody DateBody date){
+        return service.getMoviesBetweenDates(date);
+    }
+
+    @GetMapping("/date/{date}")
+    public CustomResponse<List<Movie>> getMoviesByReleaseDate(@PathVariable Date date){
+        return service.getMoviesByReleaseDate(date);
+    }
+
+    @GetMapping("/genre/{id}")
+    public CustomResponse<List<Movie>> getMoviesByGenre(@PathVariable Long id){
+        return service.getMoviesByGenre(id);
     }
 
     @PutMapping("/{id}")
